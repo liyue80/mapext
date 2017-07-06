@@ -95,8 +95,9 @@ func get(m map[string]interface{}, k string, t reflect.Kind) (interface{}, error
 }
 
 func GetStringValue(m map[string]interface{}, k string) (string, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.String); nil == err {
+	if v, err = get(m, k, reflect.String); nil == err {
 		if value, ok := v.(string); ok {
 			return value, nil
 		}
@@ -106,8 +107,9 @@ func GetStringValue(m map[string]interface{}, k string) (string, error) {
 }
 
 func GetIntValue(m map[string]interface{}, k string) (int, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.Int); nil == err {
+	if v, err = get(m, k, reflect.Int); nil == err {
 		if value, ok := v.(int); ok {
 			return value, nil
 		}
@@ -118,8 +120,9 @@ func GetIntValue(m map[string]interface{}, k string) (int, error) {
 }
 
 func GetInt8Value(m map[string]interface{}, k string) (int8, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.Int8); nil == err {
+	if v, err = get(m, k, reflect.Int8); nil == err {
 		if value, ok := v.(int8); ok {
 			return value, nil
 		}
@@ -130,8 +133,9 @@ func GetInt8Value(m map[string]interface{}, k string) (int8, error) {
 }
 
 func GetInt16Value(m map[string]interface{}, k string) (int16, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.Int16); nil == err {
+	if v, err = get(m, k, reflect.Int16); nil == err {
 		if value, ok := v.(int16); ok {
 			return value, nil
 		}
@@ -142,8 +146,9 @@ func GetInt16Value(m map[string]interface{}, k string) (int16, error) {
 }
 
 func GetInt32Value(m map[string]interface{}, k string) (int32, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.Int32); nil == err {
+	if v, err = get(m, k, reflect.Int32); nil == err {
 		if value, ok := v.(int32); ok {
 			return value, nil
 		}
@@ -154,8 +159,9 @@ func GetInt32Value(m map[string]interface{}, k string) (int32, error) {
 }
 
 func GetInt64Value(m map[string]interface{}, k string) (int64, error) {
+	var v interface{}
 	var err error
-	if v, err := get(m, k, reflect.Int64); nil == err {
+	if v, err = get(m, k, reflect.Int64); nil == err {
 		if value, ok := v.(int64); ok {
 			return value, nil
 		}
