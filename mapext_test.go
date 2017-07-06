@@ -28,11 +28,23 @@ func Test_GetStringValue_1(t *testing.T) {
 	m := f.(map[string]interface{})
 	if name, err := GetStringValue(m, "Name"); err == nil {
 		if strings.Compare(name, "Wednesday") == 0 {
-			t.Log("Pass")
+			t.Log("Test passed")
 		} else {
-			t.Error("Error")
+			t.Error("func GetStringValue return a wrong string value")
 		}
 	} else {
-		t.Error("Error")
+		t.Error("func GetStringValue returns with error")
+	}
+}
+
+func Test_GetStringValue_NoKey(t *testing.T) {
+	b := []byte(`{"Name":"Wednesday"}`)
+	var f interface{}
+	json.Unmarshal(b, &f)
+	m := f.(map[string]interface{})
+	if _, err := GetStringValue(m, "Key-not-exists"); err == nil {
+		t.Error("func GetStringValue should return with error")
+	} else {
+		t.Log("Test passed")
 	}
 }

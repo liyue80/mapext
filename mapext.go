@@ -4,7 +4,6 @@ import (
 	"errors"
 	"reflect"
 	"strconv"
-	"strings"
 )
 
 func convertToString(in interface{}) (string, error) {
@@ -80,18 +79,21 @@ func convertFromString(in string, t reflect.Kind) (interface{}, error) {
 }
 
 func get(m map[string]interface{}, k string, t reflect.Kind) (interface{}, error) {
-	for key, val := range m {
-		if strings.Compare(k, key) == 0 {
-			var err error
-			if valInString, err := convertToString(val); nil == err {
-				if value, err := convertFromString(valInString, t); nil == err {
-					return value, nil
-				}
-			}
-			return nil, err
-		}
+	v, ok := m[k]
+	if !ok {
+		return nil, errors.New("Not found the key in map")
 	}
-	return nil, errors.New("Not found the key in map")
+
+	s, err := convertToString(v)
+	if err != nil {
+		return nil, err
+	}
+
+	vi, err := convertFromString(s, t)
+	if err != nil {
+		return nil, err
+	}
+	return vi, nil
 }
 
 func GetStringValue(m map[string]interface{}, k string) (string, error) {
