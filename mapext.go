@@ -108,6 +108,23 @@ func GetStringValue(m map[string]interface{}, k string) (string, error) {
 	return "", err
 }
 
+// GetBoolValue - Search the map for k, and return its value as bool.
+// The value in JSON can be
+// - bool values: true, True, TRUE, false, False, FALSE
+// - int values: 0, 1
+// - string values: "true", "True", "TRUE", fa"lse, "False", "FALSE", "0", "1"
+func GetBoolValue(m map[string]interface{}, k string) (bool, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Bool); nil == err {
+		if value, ok := v.(bool); ok {
+			return value, nil
+		}
+		return false, errors.New("Assertion error")
+	}
+	return false, err
+}
+
 func GetIntValue(m map[string]interface{}, k string) (int, error) {
 	var v interface{}
 	var err error
