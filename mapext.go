@@ -65,13 +65,17 @@ func convertFromString(in string, t reflect.Kind) (interface{}, error) {
 	case reflect.Int64:
 		return strconv.ParseInt(in, 10, 64)
 	case reflect.Uint:
-		return strconv.ParseUint(in, 10, 0)
+		val, err := strconv.ParseUint(in, 10, 0)
+		return uint(val), err
 	case reflect.Uint8:
-		return strconv.ParseUint(in, 10, 8)
+		val, err := strconv.ParseUint(in, 10, 8)
+		return uint8(val), err
 	case reflect.Uint16:
-		return strconv.ParseUint(in, 10, 16)
+		val, err := strconv.ParseUint(in, 10, 16)
+		return uint16(val), err
 	case reflect.Uint32:
-		return strconv.ParseUint(in, 10, 32)
+		val, err := strconv.ParseUint(in, 10, 32)
+		return uint32(val), err
 	case reflect.Uint64:
 		return strconv.ParseUint(in, 10, 64)
 	}
@@ -125,6 +129,7 @@ func GetBoolValue(m map[string]interface{}, k string) (bool, error) {
 	return false, err
 }
 
+// GetIntValue - Search the map for k, and return its value as int.
 func GetIntValue(m map[string]interface{}, k string) (int, error) {
 	var v interface{}
 	var err error
@@ -138,6 +143,7 @@ func GetIntValue(m map[string]interface{}, k string) (int, error) {
 	return 0, err
 }
 
+// GetInt8Value - Search the map for k, and return its value as int8.
 func GetInt8Value(m map[string]interface{}, k string) (int8, error) {
 	var v interface{}
 	var err error
@@ -151,6 +157,7 @@ func GetInt8Value(m map[string]interface{}, k string) (int8, error) {
 	return 0, err
 }
 
+// GetInt16Value - Search the map for k, and return its value as int16.
 func GetInt16Value(m map[string]interface{}, k string) (int16, error) {
 	var v interface{}
 	var err error
@@ -164,6 +171,7 @@ func GetInt16Value(m map[string]interface{}, k string) (int16, error) {
 	return 0, err
 }
 
+// GetInt32Value - Search the map for k, and return its value as int32.
 func GetInt32Value(m map[string]interface{}, k string) (int32, error) {
 	var v interface{}
 	var err error
@@ -177,6 +185,7 @@ func GetInt32Value(m map[string]interface{}, k string) (int32, error) {
 	return 0, err
 }
 
+// GetInt64Value - Search the map for k, and return its value as int64.
 func GetInt64Value(m map[string]interface{}, k string) (int64, error) {
 	var v interface{}
 	var err error
@@ -185,6 +194,94 @@ func GetInt64Value(m map[string]interface{}, k string) (int64, error) {
 			return value, nil
 		}
 		// 值的类型不匹配，或者超过 int64 可表示的范围。
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+// GetFloat32Value - Search the map for k, and return its value as float32.
+func GetFloat32Value(m map[string]interface{}, k string) (float32, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Float32); nil == err {
+		if value, ok := v.(float32); ok {
+			return value, nil
+		}
+		// 值的类型不匹配，或者超过 float32 可表示的范围。
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+// GetFloat64Value - Search the map for k, and return its value as float64.
+func GetFloat64Value(m map[string]interface{}, k string) (float64, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Float64); nil == err {
+		if value, ok := v.(float64); ok {
+			return value, nil
+		}
+		// 值的类型不匹配，或者超过 float64 可表示的范围。
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+func GetUint8Value(m map[string]interface{}, k string) (uint8, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Uint8); nil == err {
+		if value, ok := v.(uint8); ok {
+			return value, nil
+		}
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+func GetUint16Value(m map[string]interface{}, k string) (uint16, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Uint16); nil == err {
+		if value, ok := v.(uint16); ok {
+			return value, nil
+		}
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+func GetUint32Value(m map[string]interface{}, k string) (uint32, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Uint32); nil == err {
+		if value, ok := v.(uint32); ok {
+			return value, nil
+		}
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+func GetUint64Value(m map[string]interface{}, k string) (uint64, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Uint64); nil == err {
+		if value, ok := v.(uint64); ok {
+			return value, nil
+		}
+		return 0, errors.New("Assertion error")
+	}
+	return 0, err
+}
+
+func GetUintValue(m map[string]interface{}, k string) (uint, error) {
+	var v interface{}
+	var err error
+	if v, err = get(m, k, reflect.Uint); nil == err {
+		if value, ok := v.(uint); ok {
+			return value, nil
+		}
 		return 0, errors.New("Assertion error")
 	}
 	return 0, err
